@@ -1,7 +1,8 @@
 //================= create ATP Instance =======================================
 variable "autonomous_database_db_workload" { default = "OLTP" }
 variable "autonomous_database_defined_tags_value" { default = "value" }
-variable "autonomous_database_license_model" { default = "BRING_YOUR_OWN_LICENSE" }
+# Modified since we dont actually have BYOL i believe
+variable "autonomous_database_license_model" { default = "LICENSE_INCLUDED" }
 variable "autonomous_database_is_dedicated" { default = false }
 resource "random_string" "autonomous_database_wallet_password" {
   length  = 16
@@ -21,6 +22,7 @@ resource "oci_database_autonomous_database" "autonomous_database_atp" {
   #Required
   admin_password           = random_password.database_admin_password.result
   compartment_id           = var.ociCompartmentOcid
+  # changed to always free 20GB allocation
   cpu_core_count           = "1"
   data_storage_size_in_tbs = "1"
   db_name                  = var.mtdrDbName
@@ -50,4 +52,8 @@ output "ns_objectstorage_namespace" {
 }
 output "autonomous_database_admin_password" {
   value =  [ "Welcome12345" ]
+}
+
+output "adb_ocid" {
+  value = oci_database_autonomous_database.autonomous_database_atp.id
 }

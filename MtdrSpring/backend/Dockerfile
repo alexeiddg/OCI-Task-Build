@@ -1,4 +1,4 @@
-FROM openjdk:22
+FROM openjdk:22-jdk-slim
 #COPY pom.xml /tmp/
 #COPY src /tmp/src/
 WORKDIR /tmp/

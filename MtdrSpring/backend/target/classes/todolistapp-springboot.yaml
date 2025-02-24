@@ -4,6 +4,7 @@ metadata:
   name: todolistapp-springboot-service
   annotations:
     oci.oraclecloud.com/loadbalancer-policy: "IP_HASH"
+    # Less costly load balancer shape
     service.beta.kubernetes.io/oci-load-balancer-shape: "10Mbps"
 spec:
   type: LoadBalancer
@@ -51,14 +52,14 @@ spec:
       containers:
         - name: todolistapp-springboot
           # Change to new image
-          image: mx-queretaro-1.ocir.io/axcijhx2geiq/reacttodo/3e4eg/todolistapp-springboot:0.2
+          image: mx-queretaro-1.ocir.io/something/something/something/todolistapp-springboot:0.1 # YOUR IMAGE PROVIDED ON SETUP.SH
           imagePullPolicy: Always
           env:
             - name: db_user
               value: "TODOUSER"
             - name: db_url
               # Change to new db
-              value: "jdbc:oracle:thin:@reacttodo3e4eg_tp?TNS_ADMIN=/mtdrworkshop/creds"
+              value: "jdbc:oracle:thin:@DBNAME_tp?TNS_ADMIN=/mtdrworkshop/creds"
             - name: todo.table.name
               value: "todoitem"
             - name: driver_class_name
@@ -72,6 +73,7 @@ spec:
                   key: dbpassword
                   optional: true
             - name: ui_username
+              # Change to new user
               value: "alexeidg"
             - name: ui_password
               valueFrom:
@@ -80,9 +82,11 @@ spec:
                   key: password
                   optional: true
             - name: telegram_bot_name
-              value: "oci_manager_bot"
+              # Change to new bot
+              value: "UPDATE"
             - name: telegram_bot_token
-              value: "7855236737:AAFguH95PLCxP33XHkuiLMkSwaDual8HFV0"
+              # Change to new token
+              value: "UPDATE"
           volumeMounts:
             - name: creds
               mountPath: /mtdrworkshop/creds

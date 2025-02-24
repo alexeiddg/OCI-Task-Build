@@ -52,7 +52,7 @@ spec:
       containers:
         - name: todolistapp-springboot
           # Change to new image
-          image: mx-queretaro-1.ocir.io/something/something/something/todolistapp-springboot:0.1 # YOUR IMAGE PROVIDED ON SETUP.SH
+          image: mx-queretaro-1.ocir.io/something/something/something/todolistapp-springboot:0.1
           imagePullPolicy: Always
           env:
             - name: db_user

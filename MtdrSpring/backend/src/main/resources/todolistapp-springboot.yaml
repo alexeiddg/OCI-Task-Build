@@ -73,8 +73,7 @@ spec:
                   key: dbpassword
                   optional: true
             - name: ui_username
-              # Change to new user
-              value: "alexeidg"
+              value: "admin"
             - name: ui_password
               valueFrom:
                 secretKeyRef:
@@ -82,11 +81,9 @@ spec:
                   key: password
                   optional: true
             - name: telegram_bot_name
-              # Change to new bot
-              value: "UPDATE"
+              value: "oci_manager_bot"
             - name: telegram_bot_token
-              # Change to new token
-              value: "UPDATE"
+              value: "7855236737:AAFguH95PLCxP33XHkuiLMkSwaDual8HFV0"
           volumeMounts:
             - name: creds
               mountPath: /mtdrworkshop/creds

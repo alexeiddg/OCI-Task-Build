@@ -1,0 +1,33 @@
+package com.springboot.MyTodoList.model;
+
+import lombok.*;
+import javax.persistence.*;
+import java.time.OffsetDateTime;
+
+@Entity
+@Table(name = "projects")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Project {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long projectId;
+
+    @Column(name = "project_name", nullable = false, length = 100)
+    private String projectName;
+
+    @Column(name = "project_desc", length = 500)
+    private String projectDesc;
+
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private AppUser manager;
+
+    @Column(name = "created_at", nullable = false)
+    private OffsetDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private OffsetDateTime updatedAt;
+}

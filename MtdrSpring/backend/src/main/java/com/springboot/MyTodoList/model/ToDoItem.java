@@ -1,5 +1,6 @@
 package com.springboot.MyTodoList.model;
 
+/* SAFE DELETE this class - replaced by Task Model */
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;

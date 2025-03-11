@@ -90,7 +90,7 @@ spec:
           ports:
             - containerPort: 8080
 
-          # added Health Checks
+        # added Health Checks
           readinessProbe:
             httpGet:
               path: /actuator/health

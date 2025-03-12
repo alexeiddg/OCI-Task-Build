@@ -54,9 +54,6 @@ public class Task {
     @Column(name = "story_points", columnDefinition = "int default 1")
     private int storyPoints;
 
-    @Column(name = "cycle_time")
-    private Long cycleTime;
-
     @Column(name = "time_in_progress")
     private Long timeInProgress;
 

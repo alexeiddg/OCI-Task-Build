@@ -41,9 +41,6 @@ public class TaskMetric {
     @Column(name = "avg_completion_time", columnDefinition = "INTERVAL DAY TO SECOND")
     private Long avgCompletionTime;
 
-    @Column(name = "workload_balance")
-    private Float workloadBalance;
-
     @Column(name = "bugs_fixed", columnDefinition = "INT DEFAULT 0")
     private int bugsFixed;
 

@@ -1,0 +1,24 @@
+package com.springboot.MyTodoList.service.interfaces;
+
+import com.springboot.MyTodoList.model.Team;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface TeamService {
+    Optional<Team> getTeamById(Long teamId);
+    Team saveTeam(Team team);
+    void deleteTeam(Long teamId);
+
+    // Team Assignments
+    Team assignUserToTeam(Long teamId, Long userId);
+    Team removeUserFromTeam(Long teamId, Long userId);
+
+    // Retrieving Teams
+    List<Team> getAllTeams();
+    List<Team> getTeamsByProject(Long projectId);
+
+    // Metrics & Statistics
+    int countUsersInTeam(Long teamId);
+    int countTasksAssignedToTeam(Long teamId);
+}

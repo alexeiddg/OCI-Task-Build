@@ -34,8 +34,8 @@ public class Sprint {
     @Column(name = "completed_tasks", nullable = false, columnDefinition = "int default 0")
     private int completedTasks;
 
-    @Column(name = "sprint_velocity", nullable = false, columnDefinition = "int default 0")
-    private int sprintVelocity;
+    @Column(name = "sprint_velocity", nullable = false, columnDefinition = "float default 0")
+    private float sprintVelocity;
 
     @Column(name = "completion_rate", nullable = false, columnDefinition = "float default 0.0")
     private float completionRate;

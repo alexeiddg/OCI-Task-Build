@@ -22,8 +22,6 @@ public interface SprintService {
     List<Task> getTasksBySprint(Long sprintId);
 
     // Sprint Performance KPIs
-    int getTotalTasksInSprint(Long sprintId);
-    int getCompletedTasksInSprint(Long sprintId);
     float calculateSprintVelocity(Long sprintId);
     float calculateCompletionRate(Long sprintId);
 }

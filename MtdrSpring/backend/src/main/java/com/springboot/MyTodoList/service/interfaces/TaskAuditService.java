@@ -2,6 +2,7 @@ package com.springboot.MyTodoList.service.interfaces;
 
 import com.springboot.MyTodoList.model.TaskAudit;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ public interface TaskAuditService {
     List<TaskAudit> getAuditEntriesForTask(Long taskId);
     List<TaskAudit> getAuditEntriesByUser(Long userId);
     List<TaskAudit> getAuditEntriesByChangeType(String changeType);
-    List<TaskAudit> getAuditEntriesByDateRange(String startDate, String endDate);
+    List<TaskAudit> getAuditEntriesByDateRange(OffsetDateTime startDate, OffsetDateTime endDate);
 
     // Generating Task Reports
     List<TaskAudit> getRecentChanges(int limit);

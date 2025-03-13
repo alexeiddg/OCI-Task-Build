@@ -2,14 +2,27 @@ package com.springboot.MyTodoList.repository;
 
 import com.springboot.MyTodoList.model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
 @EnableTransactionManagement
 public interface TeamRepository extends JpaRepository<Team, Long> {
-    //impl
+
+    // Retrieve all teams belonging to a project
+    @Query("SELECT t FROM Team t WHERE t.project.projectId = :projectId")
+    List<Team> findByProjectId(Long projectId);
+
+    // Count the number of users assigned to a team
+    @Query("SELECT COUNT(u) FROM AppUser u JOIN u.teams t WHERE t.teamId = :teamId")
+    int countUsersInTeam(Long teamId);
+
+    // Count the number of tasks assigned to a team
+    @Query("SELECT COUNT(t) FROM Task t WHERE t.team.teamId = :teamId")
+    int countTasksAssignedToTeam(Long teamId);
 }

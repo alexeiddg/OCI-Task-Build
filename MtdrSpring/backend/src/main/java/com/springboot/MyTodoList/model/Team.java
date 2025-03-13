@@ -3,6 +3,8 @@ package com.springboot.MyTodoList.model;
 import lombok.*;
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "teams")
@@ -21,6 +23,14 @@ public class Team {
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
+
+    @ManyToMany
+    @JoinTable(
+            name = "team_members",
+            joinColumns = @JoinColumn(name = "team_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<AppUser> users = new HashSet<>();
 
     @Column(name = "created_at", nullable = false)
     private OffsetDateTime createdAt;

@@ -13,6 +13,7 @@ public interface TeamService {
     // Team Assignments
     Team assignUserToTeam(Long teamId, Long userId);
     Team removeUserFromTeam(Long teamId, Long userId);
+    Team assignTeamToProject(Long teamId, Long projectId);
 
     // Retrieving Teams
     List<Team> getAllTeams();

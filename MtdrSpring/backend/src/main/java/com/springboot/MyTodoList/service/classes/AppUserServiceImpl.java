@@ -9,6 +9,7 @@ import com.springboot.MyTodoList.repository.TaskRepository;
 import com.springboot.MyTodoList.service.interfaces.AppUserService;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,9 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public AppUser saveUser(AppUser user) {
+        if (user.getCreatedAt() == null) {
+            user.setCreatedAt(OffsetDateTime.now());
+        }
         return appUserRepository.save(user);
     }
 

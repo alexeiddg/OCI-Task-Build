@@ -19,7 +19,7 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     List<Team> findByProjectId(Long projectId);
 
     // Count the number of users assigned to a team
-    @Query("SELECT COUNT(u) FROM AppUser u JOIN u.teams t WHERE t.teamId = :teamId")
+    @Query("SELECT COUNT(u) FROM Team t JOIN t.users u WHERE t.teamId = :teamId")
     int countUsersInTeam(Long teamId);
 
     // Count the number of tasks assigned to a team

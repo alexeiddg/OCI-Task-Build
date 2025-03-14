@@ -5,6 +5,7 @@ import com.springboot.MyTodoList.service.interfaces.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class TaskController {
     // Create or update a task
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
+        task.setCreatedAt(OffsetDateTime.now());
         Task savedTask = taskService.saveTask(task);
         return ResponseEntity.ok(savedTask);
     }

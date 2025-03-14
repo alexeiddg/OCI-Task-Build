@@ -7,8 +7,13 @@ export interface Task {
     projectId: number;
     sprintId?: number;
     teamId: number;
-    assignedTo?: number; // User ID
+    createdBy: number;  // User ID reference
+    assignedTo?: number; // User ID reference
     taskType: "BUG" | "FEATURE" | "IMPROVEMENT";
     storyPoints?: number;
+    timeInProgress?: number;
+    blocked?: boolean;
     dueDate?: string; // Format: YYYY-MM-DD
+    createdAt?: string; // ISO timestamp format
+    updatedAt?: string; // ISO timestamp format
 }

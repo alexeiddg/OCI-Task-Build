@@ -7,6 +7,7 @@ import com.springboot.MyTodoList.repository.ProjectRepository;
 import com.springboot.MyTodoList.service.interfaces.ProjectService;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project saveProject(Project project) {
+        project.setCreatedAt(OffsetDateTime.now());
         return projectRepository.save(project);
     }
 

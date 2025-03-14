@@ -122,4 +122,9 @@ public class AppUserServiceImpl implements AppUserService {
         }
         throw new RuntimeException("User or Task not found.");
     }
+
+    @Override
+    public List<AppUser> getUsersWithoutProjects() {
+        return appUserRepository.findUsersWithoutProjects();
+    }
 }

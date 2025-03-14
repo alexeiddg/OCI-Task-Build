@@ -35,7 +35,7 @@ public class WebSecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/api/v1/user/**").permitAll() // Allow public access to user creation
+                .antMatchers("/api/v1/**").permitAll() // Allow public access to all endpoints under /api/v1
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().disable(); // Disable form login

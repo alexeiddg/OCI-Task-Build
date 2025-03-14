@@ -68,4 +68,9 @@ public class AppUserController {
     public ResponseEntity<AppUser> assignUserToTask(@PathVariable Long userId, @PathVariable Long taskId) {
         return ResponseEntity.ok(appUserService.assignUserToTask(userId, taskId));
     }
+
+    @GetMapping("/without-projects")
+    public ResponseEntity<List<AppUser>> getUsersWithoutProjects() {
+        return ResponseEntity.ok(appUserService.getUsersWithoutProjects());
+    }
 }

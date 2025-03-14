@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { User } from "@/model/User";
+import { Project } from "@/model/Project";
+import { getProjectsByUser } from "@/services/projectService";
 
 export default function DashboardPage() {
     const [user, setUser] = useState<User | null>(null);
+    const [projects, setProjects] = useState<Project[]>([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -14,7 +17,11 @@ export default function DashboardPage() {
 
         if (storedUser) {
             try {
-                setUser(JSON.parse(storedUser) as User);
+                const parsedUser = JSON.parse(storedUser) as User;
+                setUser(parsedUser);
+
+                // Fetch user projects
+                fetchUserProjects(parsedUser.userId);
             } catch (error) {
                 console.error("Failed to parse user data:", error);
                 localStorage.removeItem("user");
@@ -24,6 +31,13 @@ export default function DashboardPage() {
             router.push("/"); // Redirect to login if no session found
         }
     }, []);
+
+    const fetchUserProjects = async (userId: number) => {
+        const userProjects = await getProjectsByUser(userId);
+        if (userProjects) {
+            setProjects(userProjects);
+        }
+    };
 
     if (!user) {
         return <p>Loading...</p>;
@@ -35,9 +49,7 @@ export default function DashboardPage() {
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-[var(--oracle-dark)] text-2xl font-bold">
                     Hey there, {user.name}
-                    <p className="text-[var(--oracle-dark)] text-sm">
-                        ({user.role})
-                    </p>
+                    <p className="text-[var(--oracle-dark)] text-sm">({user.role})</p>
                 </h1>
                 <button
                     onClick={() => {
@@ -63,9 +75,15 @@ export default function DashboardPage() {
                     )}
                 </div>
                 <div className="grid grid-cols-3 gap-4">
-                    <div className="h-32 bg-gray-300 rounded-lg"></div>
-                    <div className="h-32 bg-gray-300 rounded-lg"></div>
-                    <div className="h-32 bg-gray-300 rounded-lg"></div>
+                    {projects.length > 0 ? (
+                        projects.map((project) => (
+                            <div key={project.projectId} className="h-32 bg-gray-300 rounded-lg flex items-center justify-center">
+                                <p className="text-[var(--oracle-dark)] font-bold">{project.projectName}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-[var(--oracle-dark-gray)]">No projects found.</p>
+                    )}
                 </div>
             </section>
 

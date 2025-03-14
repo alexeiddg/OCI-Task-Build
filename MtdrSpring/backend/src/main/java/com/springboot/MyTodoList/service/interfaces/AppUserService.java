@@ -18,4 +18,6 @@ public interface AppUserService {
 
     AppUser assignUserToProject(Long userId, Long projectId);
     AppUser assignUserToTask(Long userId, Long taskId);
+
+    List<AppUser> getUsersWithoutProjects();
 }

@@ -3,6 +3,8 @@ package com.springboot.MyTodoList.model;
 import lombok.*;
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "sprints")
@@ -27,6 +29,14 @@ public class Sprint {
 
     @Column(name = "end_date", nullable = false)
     private OffsetDateTime endDate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "sprint_teams",
+            joinColumns = @JoinColumn(name = "sprint_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private Set<Team> teams = new HashSet<>();
 
     @Column(name = "total_tasks", nullable = false, columnDefinition = "int default 0")
     private int totalTasks;

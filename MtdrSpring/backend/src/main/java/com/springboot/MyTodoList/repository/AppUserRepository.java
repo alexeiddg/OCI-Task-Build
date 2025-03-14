@@ -17,7 +17,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByUsername(String username);
     List<AppUser> findByRole(String role);
 
-
     @Query("SELECT u FROM AppUser u WHERE u.userId NOT IN (SELECT p.manager.userId FROM Project p) " +
             "AND u.userId NOT IN (SELECT d.userId FROM Project p JOIN p.developers d)")
     List<AppUser> findUsersWithoutProjects();

@@ -106,4 +106,9 @@ public class TeamServiceImpl implements TeamService {
     public int countTasksAssignedToTeam(Long teamId) {
         return teamRepository.countTasksAssignedToTeam(teamId);
     }
+
+    @Override
+    public List<Team> getTeamsByProjectId(Long projectId) {
+        return teamRepository.findTeamsByProjectId(projectId);
+    }
 }

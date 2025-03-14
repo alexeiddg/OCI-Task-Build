@@ -22,4 +22,7 @@ public interface SprintRepository extends JpaRepository<Sprint,Long> {
 
     @Query("SELECT SUM(s.completedTasks) FROM Sprint s WHERE s.sprintId = :sprintId")
     Integer getCompletedTasksInSprint(Long sprintId);
+
+    @Query("SELECT s FROM Sprint s JOIN s.teams t WHERE t.teamId = :teamId")
+    List<Sprint> findByTeamId(Long teamId);
 }

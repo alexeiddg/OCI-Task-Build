@@ -1,7 +1,10 @@
 package com.springboot.MyTodoList.service.classes;
 
+import com.springboot.MyTodoList.model.Project;
 import com.springboot.MyTodoList.model.Sprint;
 import com.springboot.MyTodoList.model.Task;
+import com.springboot.MyTodoList.model.Team;
+import com.springboot.MyTodoList.repository.ProjectRepository;
 import com.springboot.MyTodoList.repository.SprintRepository;
 import com.springboot.MyTodoList.repository.TaskRepository;
 import com.springboot.MyTodoList.service.interfaces.SprintService;
@@ -14,10 +17,12 @@ import java.util.Optional;
 public class SprintServiceImpl implements SprintService {
     private final SprintRepository sprintRepository;
     private final TaskRepository taskRepository;
+    private final ProjectRepository projectRepository;
 
-    public SprintServiceImpl(SprintRepository sprintRepository, TaskRepository taskRepository) {
+    public SprintServiceImpl(SprintRepository sprintRepository, TaskRepository taskRepository, ProjectRepository projectRepository) {
         this.sprintRepository = sprintRepository;
         this.taskRepository = taskRepository;
+        this.projectRepository = projectRepository;
     }
 
     @Override
@@ -27,6 +32,17 @@ public class SprintServiceImpl implements SprintService {
 
     @Override
     public Sprint saveSprint(Sprint sprint) {
+        // Ensure project exists
+        Project project = projectRepository.findById(sprint.getProject().getProjectId())
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+
+        // Validate teams
+        for (Team team : sprint.getTeams()) {
+            if (!team.getProject().equals(project)) {
+                throw new RuntimeException("One or more teams do not belong to the selected project.");
+            }
+        }
+
         return sprintRepository.save(sprint);
     }
 

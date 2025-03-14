@@ -1,6 +1,7 @@
 package com.springboot.MyTodoList.service.interfaces;
 
 import com.springboot.MyTodoList.model.Task;
+import com.springboot.MyTodoList.model.Team;
 
 import java.util.List;
 import java.util.Optional;

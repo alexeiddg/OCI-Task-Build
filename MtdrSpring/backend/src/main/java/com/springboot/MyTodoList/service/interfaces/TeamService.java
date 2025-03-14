@@ -22,4 +22,6 @@ public interface TeamService {
     // Metrics & Statistics
     int countUsersInTeam(Long teamId);
     int countTasksAssignedToTeam(Long teamId);
+
+    List<Team> getTeamsByProjectId(Long projectId);
 }

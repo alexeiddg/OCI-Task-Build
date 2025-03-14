@@ -41,6 +41,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<Project> findByUser(AppUser user) {
+        return projectRepository.findByUser(user);
+    }
+
+    @Override
     public List<Project> getProjectsManagedByUser(Long managerId) {
         Optional<AppUser> manager = appUserRepository.findById(managerId);
         if (manager.isPresent()) {

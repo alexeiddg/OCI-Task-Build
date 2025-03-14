@@ -19,5 +19,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Query("SELECT p FROM Project p JOIN p.developers d WHERE d = :developer")
     List<Project> findByDevelopersContaining(AppUser developer);
 
+    // Fetch projects where the user is either the manager or a developer
+    @Query("SELECT p FROM Project p WHERE p.manager = :user OR :user MEMBER OF p.developers")
+    List<Project> findByUser(AppUser user);
+
     List<Project> findByManager(AppUser manager);
 }

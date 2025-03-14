@@ -1,5 +1,6 @@
 package com.springboot.MyTodoList.service.interfaces;
 
+import com.springboot.MyTodoList.model.AppUser;
 import com.springboot.MyTodoList.model.Project;
 
 import java.util.List;
@@ -13,5 +14,6 @@ public interface ProjectService {
     // Project Management
     List<Project> getAllProjects();
     List<Project> getProjectsManagedByUser(Long managerId);
+    List<Project> findByUser(AppUser user);
     Project assignManagerToProject(Long projectId, Long managerId);
 }

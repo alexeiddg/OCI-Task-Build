@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Link from "next/link";
 import { createUser } from "@/services/userService";
+import Link from "next/link";
 
 export default function SignUpPage() {
     const searchParams = useSearchParams();
@@ -14,24 +14,26 @@ export default function SignUpPage() {
     const [username, setUsername] = useState(usernameFromQuery);
     const [role, setRole] = useState("DEVELOPER");
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+    const [message, setMessage] = useState({ text: "", type: "" });
 
     const handleSignUp = async () => {
         if (!name.trim() || !username.trim()) {
-            setError("Please fill out all fields.");
+            setMessage({ text: "Please fill out all fields.", type: "error" });
             return;
         }
 
-        setError("");
+        setMessage({ text: "", type: "" });
         setLoading(true);
 
         const newUser = await createUser(name, username, role);
 
         if (newUser) {
-            alert("User created successfully!");
-            router.push("/"); // Redirect to login page
+            setMessage({ text: "User created successfully!", type: "success" });
+            setTimeout(() => {
+                router.push("/dashboard"); // Redirect to dashboard
+            }, 2000);
         } else {
-            setError("Failed to create user. Please try again.");
+            setMessage({ text: "Failed to create user. Please try again.", type: "error" });
         }
 
         setLoading(false);
@@ -39,12 +41,22 @@ export default function SignUpPage() {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-[var(--oracle-light-gray)]">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-                <h1 className="text-2xl font-bold text-[var(--oracle-dark)] text-center mb-4">
+            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md relative">
+
+                {/* Success/Error Message Banner */}
+                {message.text && (
+                    <div
+                        className={`absolute top-0 left-0 right-0 px-4 py-2 text-center text-white font-semibold ${
+                            message.type === "success" ? "bg-green-500" : "bg-red-500"
+                        }`}
+                    >
+                        {message.text}
+                    </div>
+                )}
+
+                <h1 className="text-2xl font-bold text-[var(--oracle-dark)] text-center mb-6 mt-8">
                     Complete Your Signup
                 </h1>
-
-                {error && <p className="text-red-600 text-center">{error}</p>}
 
                 {/* Full Name */}
                 <div className="flex flex-col mb-4">

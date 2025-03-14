@@ -1,6 +1,8 @@
 package com.springboot.MyTodoList.controller.web;
 
+import com.springboot.MyTodoList.model.AppUser;
 import com.springboot.MyTodoList.model.Project;
+import com.springboot.MyTodoList.service.interfaces.AppUserService;
 import com.springboot.MyTodoList.service.interfaces.ProjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +14,11 @@ import java.util.Optional;
 @RequestMapping("/api/v1/project")
 public class ProjectController {
     private final ProjectService projectService;
+    private final AppUserService appUserService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, AppUserService appUserService) {
         this.projectService = projectService;
+        this.appUserService = appUserService;
     }
 
     // Get all projects
@@ -29,6 +33,18 @@ public class ProjectController {
         Optional<Project> project = projectService.getProjectById(projectId);
         return project.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Project>> getProjectsByUser(@PathVariable Long userId) {
+        Optional<AppUser> user = appUserService.getUserById(userId);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build(); // Return 404 if user not found
+        }
+
+        List<Project> projects = projectService.findByUser(user.get());
+        return ResponseEntity.ok(projects);
     }
 
     // Create a new project

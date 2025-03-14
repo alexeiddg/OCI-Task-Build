@@ -2,6 +2,7 @@ package com.springboot.MyTodoList.controller.web;
 
 import com.springboot.MyTodoList.model.AppUser;
 import com.springboot.MyTodoList.service.interfaces.AppUserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

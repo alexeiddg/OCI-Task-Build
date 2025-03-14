@@ -57,7 +57,7 @@ export default function DashboardPage() {
             onClick={() => router.push("/metrics")}
             className="text-[var(--oracle-blue)] font-bold hover:underline"
           >
-            Go to Dashboard
+            Go to Metrics
           </button>
           <button
             onClick={() => {
